@@ -512,7 +512,6 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 		Utilities,
 		PluginUtilities,
 		Modals,
-		Tooltip,
 		Toasts: Toast,
 		DiscordModules: Modules,
 	} = Library;
@@ -853,7 +852,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 			inbox.appendChild(icon);
 
 			// add hover tooltip
-			let tooltip = new Tooltip(inbox, 'Keyword Matches');
+			BdApi.UI.createTooltip(inbox, "Keyword Matches", {side: "bottom"});
 
 			// actual modal window on-click
 			const openModal = () => {
@@ -926,7 +925,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 					entry.querySelector('.kt-matched > code').textContent = msg._match;
 
 					let read_btn = entry.querySelector('.kt-read');
-					new Tooltip(read_btn, 'Mark as read');
+					BdApi.UI.createTooltip(read_btn, "Mark as read");
 					read_btn.addEventListener('click', e => {
 						delete this.settings.unreadMatches[msg.id];
 						this.saveSettings();
@@ -934,7 +933,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 					});
 
 					let jump_btn = entry.querySelector('.kt-jump');
-					new Tooltip(jump_btn, 'Jump to message');
+					BdApi.UI.createTooltip(jump_btn, "Jump to message");
 					jump_btn.addEventListener('click', e => {
 						if (this.settings.markJumpedRead) {
 							delete this.settings.unreadMatches[msg.id];
