@@ -834,7 +834,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 
 		// build the inbox panel placed directly after the pinned messages button
 		buildInboxPanel() {
-			let pinned = document.querySelector('div[class$="toolbar" i] > div:first-child');
+			let pinned = document.querySelector('div[class$="toolbar" i] > div[role="button"]');
 			if (!pinned) {
 				return;
 			}
