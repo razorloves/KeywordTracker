@@ -512,7 +512,6 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 		Utilities,
 		PluginUtilities,
 		Modals,
-		Toasts: Toast,
 		DiscordModules: Modules,
 	} = Library;
 	const {
