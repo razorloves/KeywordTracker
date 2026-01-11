@@ -901,7 +901,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 					entry.className = 'kt-inbox-entry';
 					entry.innerHTML = `
 						<div class="kt-entry-row">
-							<img class="kt-usericon" src="https://cdn.discordapp.com/avatars/${msg.author.id}/${msg.author.avatar}.webp?size=24" />
+							<img class="kt-usericon" src="" />
 							<span class="kt-username"></span>
 							<span class="kt-timestamp">${new Date(msg.timestamp).toLocaleString()}</span>
 						</div>
@@ -918,6 +918,9 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 						</div>
 					`;
 
+					entry.querySelector('.kt-usericon').src = msg.author.avatar !== null
+						? `https://cdn.discordapp.com/avatars/${msg.author.id}/${msg.author.avatar}.webp?size=24`
+						: `https://cdn.discordapp.com/embed/avatars/${msg.author.bot ? 0 : (BigInt(msg.author.id) >> 22n) % 6n}.png`;
 					entry.querySelector('.kt-username').textContent = msg.author.username;
 					entry.querySelector('.kt-content').textContent = msg.content;
 					entry.querySelector('.kt-matched > code').textContent = msg._match;
