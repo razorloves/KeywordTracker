@@ -468,6 +468,18 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
   text-overflow: ellipsis;
 }
 
+.kt-servericon {
+  width: 24px;
+  height: 24px;
+  border-radius: 30%;
+  object-fit: cover;
+}
+
+.kt-channel, .kt-channel > code {
+  color: var(--text-muted);
+  font-size: .75rem;
+}
+
 .kt-button {
   border-radius: 50%;
   width: 32px;
@@ -905,6 +917,8 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 						<div class="kt-content"></div>
 						<div class="kt-entry-row">
 							<span class="kt-matched">Matched <code></code></span>
+							<img class="kt-servericon" src="" />
+							<span class="kt-channel">#<code></code></span>
 							<span class="kt-spacer"></span>
 							<div class="kt-button kt-read">
 								<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M21.7 5.3a1 1 0 0 1 0 1.4l-12 12a1 1 0 0 1-1.4 0l-6-6a1 1 0 1 1 1.4-1.4L9 16.58l11.3-11.3a1 1 0 0 1 1.4 0Z"></path></svg>
@@ -921,6 +935,14 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 					entry.querySelector('.kt-username').textContent = msg.author.username;
 					entry.querySelector('.kt-content').textContent = msg.content;
 					entry.querySelector('.kt-matched > code').textContent = msg._match;
+					const ChannelStore = BdApi.Webpack.getStore("ChannelStore");
+					const channel = ChannelStore.getChannel(msg.channel_id);
+					entry.querySelector('.kt-channel > code').textContent = channel.name;
+					const GuildStore = BdApi.Webpack.getStore("GuildStore");
+					const guild = GuildStore.getGuild(msg.guild_id);
+					const icon = entry.querySelector('.kt-servericon');
+						icon.src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=24`;
+						icon.title = guild.name;
 
 					let read_btn = entry.querySelector('.kt-read');
 					BdApi.UI.createTooltip(read_btn, "Mark as read");
