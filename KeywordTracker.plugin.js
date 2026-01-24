@@ -555,7 +555,7 @@ module.exports = !global.ZeresPluginLibrary ? Dummy : (([Plugin, Api]) => {
 			this.loadSettings();
 			this.inboxPanel = null;
 
-			let dispatchModule = Webpack.getByKeys('dispatch', 'subscribe');
+			let dispatchModule = Webpack.getByKeys('dispatch', 'subscribe', {searchExports: true});
 			Patcher.after(this.getName(), dispatchModule, 'dispatch', this.handleMessage.bind(this));
 
 			const stringFilter = BdApi.Webpack.Filters.byStrings(".GUILD_HOME");
